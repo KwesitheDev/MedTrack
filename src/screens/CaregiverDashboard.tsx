@@ -6,6 +6,7 @@ import { Card } from '../components/Card';
 import { auth, db } from '../utils/firebaseConfig.client';
 import firebase from 'firebase/compat/app';
 import moment from 'moment';
+import { useNavigation } from '@react-navigation/native';
 
 export const CaregiverDashboard = () => {
     const [patientId, setPatientId] = useState('');
@@ -15,6 +16,7 @@ export const CaregiverDashboard = () => {
     const [frequency, setFrequency] = useState('');
     const [schedules, setSchedules] = useState([]);
     const [loading, setLoading] = useState(false);
+    const navigation = useNavigation();
 
     useEffect(() => {
         const q = firebase.firestore().collection('schedules').where('caregiverId', '==', auth.currentUser.uid);
@@ -75,6 +77,11 @@ export const CaregiverDashboard = () => {
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Caregiver Dashboard</Text>
+            <Button
+                title="Open Chat"
+                variant="secondary"
+                onPress={() => navigation.navigate('Chat')}
+            />
             <Card>
                 <Text style={styles.subtitle}>Create Medication Schedule</Text>
                 <InputCell
