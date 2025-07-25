@@ -84,11 +84,20 @@ export const PatientDashboard = () => {
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Patient Dashboard</Text>
-            <Button
-                title="Submit Feedback"
-                variant="secondary"
-                onPress={() => navigation.navigate('Feedback')}
-            />
+            <View style={styles.buttonContainer}>
+                <Button
+                    title="Submit Feedback"
+                    variant="secondary"
+                    onPress={() => navigation.navigate('Feedback')}
+                    style={styles.navButton}
+                />
+                <Button
+                    title="Open Chat"
+                    variant="secondary"
+                    onPress={() => navigation.navigate('Chat')}
+                    style={styles.navButton}
+                />
+            </View>
             <FlatList
                 data={schedules}
                 renderItem={renderSchedule}
@@ -110,6 +119,15 @@ const styles = StyleSheet.create({
         fontWeight: '600',
         color: '#1E3A8A',
         marginBottom: 16,
+    },
+    buttonContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginBottom: 16,
+    },
+    navButton: {
+        flex: 1,
+        marginHorizontal: 4,
     },
     scheduleText: {
         fontSize: 16,
