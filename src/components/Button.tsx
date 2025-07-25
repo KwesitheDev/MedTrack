@@ -1,17 +1,19 @@
-import { TouchableOpacity, Text, StyleSheet, TouchableOpacityProps } from 'react-native';
+import { TouchableOpacity, Text, StyleSheet } from 'react-native';
 
-interface ButtonProps extends TouchableOpacityProps {
-    title: string;
-    variant?: 'primary' | 'secondary';
-}
-
-export const Button = ({ title, variant = 'primary', style, ...props }: ButtonProps) => {
+export const Button = ({ title, onPress, disabled, variant = 'primary' }) => {
     return (
         <TouchableOpacity
-            style={[styles.button, variant === 'primary' ? styles.primary : styles.secondary, style]}
-            {...props}
+            style={[
+                styles.button,
+                variant === 'primary' ? styles.primary : styles.secondary,
+                disabled && styles.disabled,
+            ]}
+            onPress={onPress}
+            disabled={disabled}
         >
-            <Text style={styles.buttonText}>{title}</Text>
+            <Text style={[styles.text, variant === 'primary' ? styles.primaryText : styles.secondaryText]}>
+                {title}
+            </Text>
         </TouchableOpacity>
     );
 };
@@ -19,11 +21,10 @@ export const Button = ({ title, variant = 'primary', style, ...props }: ButtonPr
 const styles = StyleSheet.create({
     button: {
         paddingVertical: 12,
-        paddingHorizontal: 24,
+        paddingHorizontal: 16,
         borderRadius: 8,
-        alignItems: 'center',
-        justifyContent: 'center',
         marginVertical: 8,
+        alignItems: 'center',
     },
     primary: {
         backgroundColor: '#1E3A8A',
@@ -33,10 +34,17 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: '#1E3A8A',
     },
-    buttonText: {
-        color: '#FFFFFF',
+    disabled: {
+        opacity: 0.5,
+    },
+    text: {
         fontSize: 16,
         fontWeight: '600',
-        textAlign: 'center',
+    },
+    primaryText: {
+        color: '#FFFFFF',
+    },
+    secondaryText: {
+        color: '#1E3A8A',
     },
 });
